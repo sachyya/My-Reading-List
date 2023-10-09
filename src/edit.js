@@ -23,6 +23,8 @@ import { store as coreDataStore } from '@wordpress/core-data';
  */
 import './editor.scss';
 
+import BookList from './components/BookList';
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -39,25 +41,10 @@ export default function Edit() {
         []
     );
 
-    if ( ! books ) {
-        return (
-            <div {...useBlockProps()}>
-                <p>{__('My Reading List – hello from the editor!', 'my-reading-list')}</p>
-            </div>
-        );
-    }
-
-    console.log( books );
     return (
 	    <div {...useBlockProps()}>
 	        <p>{__('My Reading List – hello from the editor!', 'my-reading-list')}</p>
-	        { books.map( ( book ) => (
-	            <div>
-	                <h2>{ book.title.rendered }</h2>
-	                <img src={ book.featured_image_src }/>
-	                <div dangerouslySetInnerHTML={ { __html: book.content.rendered } }></div>
-	            </div>
-	        ) ) }
+			<BookList books={books} />
 	    </div>
 	);
 }
