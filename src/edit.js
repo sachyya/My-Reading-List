@@ -11,10 +11,9 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
-import { Panel, PanelBody, ToggleControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -25,6 +24,7 @@ import { Panel, PanelBody, ToggleControl } from '@wordpress/components';
 import './editor.scss';
 
 import BookList from './components/BookList';
+import BlockControls from './components/BlockControls';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -35,7 +35,6 @@ import BookList from './components/BookList';
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { showContent, showImage } = attributes;
     const books = useSelect(
         select =>
             select( coreDataStore ).getEntityRecords( 'postType', 'book' ),
@@ -44,26 +43,8 @@ export default function Edit({ attributes, setAttributes }) {
 
     return (
 	    <div {...useBlockProps()}>
-			<InspectorControls key="setting">
-				<Panel>
-					<PanelBody title="My Reading List Settings">
-						<ToggleControl
-							label="Toggle Image"
-							checked={ showImage }
-							onChange={ (newValue) => {
-								setAttributes( { showImage: newValue } );
-							} }
-						/>
-						<ToggleControl
-							label="Toggle Content"
-							checked={ showContent }
-							onChange={ (newValue) => {
-								setAttributes( { showContent: newValue } );
-							} }
-						/>
-					</PanelBody>
-				</Panel>
-			</InspectorControls>
+
+			<BlockControls attributes={ attributes } setAttributes={ setAttributes } />
 
 	        <p>{__('My Reading List – hello from the editor!', 'my-reading-list')}</p>
 			<BookList books={ books } attributes={ attributes } />
