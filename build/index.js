@@ -158,7 +158,13 @@ function Edit({
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockControls__WEBPACK_IMPORTED_MODULE_7__["default"], {
     attributes: attributes,
     setAttributes: setAttributes
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('My Reading List – hello from the editor!', 'my-reading-list')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BookList__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    tagName: "p",
+    value: attributes.content,
+    onChange: content => setAttributes({
+      content
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BookList__WEBPACK_IMPORTED_MODULE_6__["default"], {
     books: books,
     attributes: attributes
   }));
@@ -360,7 +366,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ (function(module) {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"my-reading-list/reading-list-block","version":"0.0.1","title":"My Reading List Block","description":"Example block scaffolded with Create Block tool.","category":"widgets","icon":"smiley","example":{},"supports":{"html":false,"align":true,"color":{"background":true,"text":true}},"attributes":{"showContent":{"type":"boolean","default":true},"showImage":{"type":"boolean","default":true}},"textdomain":"my-reading-list","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"my-reading-list/reading-list-block","version":"0.0.1","title":"My Reading List Block","description":"Example block scaffolded with Create Block tool.","category":"widgets","icon":"smiley","example":{},"supports":{"html":false,"align":true,"color":{"background":true,"text":true}},"attributes":{"showContent":{"type":"boolean","default":true},"showImage":{"type":"boolean","default":true},"content":{"type":"string","source":"html","selector":"p","default":"My Reading List"}},"textdomain":"my-reading-list","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
