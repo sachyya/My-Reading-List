@@ -30,7 +30,7 @@ function my_reading_list_register_book_post_type() {
             'has_archive'  => true,
             'supports'     => array( 'title', 'editor', 'thumbnail' ),
             'show_in_rest' => true
-        ) 
+        )
     );
 }
 
@@ -43,7 +43,37 @@ function my_reading_list_register_book_post_type() {
  */
 add_action( 'init', 'my_reading_list_reading_list_block_init' );
 function my_reading_list_reading_list_block_init() {
-    register_block_type( __DIR__ . '/build' );
+    register_block_type( __DIR__ . '/build',
+		array( 'render_callback' => 'my_reading_list_render_callback' ) );
+}
+
+function my_reading_list_render_callback( $attributes ) {
+	$args  = array(
+		'post_type' => 'book',
+	);
+	$books = get_posts( $args );
+
+	$wrapper_attributes = get_block_wrapper_attributes();
+
+	$output  = '';
+	$output .= sprintf( '<div %1$s>', $wrapper_attributes );
+	$output .= '<p>' . $attributes['content'] . '</p>';
+
+	foreach ( $books as $book ) {
+		$output .= '<div>';
+		$output .= '<h2>' . $book->post_title . '</h2>';
+		if ( $attributes['showImage'] ) {
+			$output .= get_the_post_thumbnail( $book->ID, 'medium' );
+		}
+		if ( $attributes['showContent'] ) {
+			$output .= $book->post_content;
+		}
+		$output .= '</div>';
+	}
+
+	$output .= '</div>';
+
+	return $output;
 }
 
 /**

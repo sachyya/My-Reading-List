@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
 
@@ -44,13 +44,10 @@ export default function Edit({ attributes, setAttributes }) {
     return (
 	    <div {...useBlockProps()}>
 
+			<p>{__( 'My Reading List – hello from the editor!', 'my-reading-list') }</p>
+
 			<BlockControls attributes={ attributes } setAttributes={ setAttributes } />
 
-			<RichText
-				tagName="p"
-				value={ attributes.content }
-				onChange={ ( content ) => setAttributes( { content } ) }
-			/>
 			<BookList books={ books } attributes={ attributes } />
 	    </div>
 	);
